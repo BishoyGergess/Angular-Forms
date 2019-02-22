@@ -1,0 +1,54 @@
+
+<div class="container">
+  
+  <div class="row">
+    <div *ngIf="!submitted">
+      <h1>Basic Template Driven Form</h1>
+      <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" name="name" id="name" #name="ngModel" ngModel required>
+          <div class="alert alert-danger" *ngIf="!name.valid && name.touched">
+            <strong>Name</strong> is required
+          </div>
+        </div>
+        <div class="form-group">
+            <label for="alterEgo">Alter Ego</label>
+            <input type="text" class="form-control" name="alterEgo" id="alterEgo" #alterEgo="ngModel" ngModel required>
+            <div class="alert alert-danger" *ngIf="!alterEgo.valid && alterEgo.touched">
+              <strong>Alter Ego</strong> is required
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="power">Hero Power</label>
+            <select  class="form-control" name="power" id="power" #power="ngModel" ngModel required>
+              <option *ngFor="let p of powers" [value]="p">{{ p }}</option>
+            </select>
+            <div class="alert alert-danger" *ngIf="!power.valid && power.touched">
+              <strong>Power</strong> is required
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success" [disabled]="!f.valid">Submit</button>
+      </form>
+    </div>
+  </div>
+  <div *ngIf="submitted" class="row">
+      <h2>You submitted the following:</h2>
+      <div class="row">
+        <span class="col-md-2">Name: </span>
+        <span class="col-md-10 pull-left" > {{ form.name }}</span>
+      </div>
+      <div class="row">
+        <span class="col-md-2">Alter Ego: </span>
+        <span class="col-md-10 pull-left" > {{ form.alterEgo }}</span>
+      </div>
+      <div class="row">
+        <span class="col-md-2">Power: </span>
+        <span class="col-md-10 pull-left" >{{ form.power }} </span>
+      </div>
+      <button class="btn btn-success" (click)="submitted=false">Edit</button>
+    </div>
+  
+  
+</div>
+

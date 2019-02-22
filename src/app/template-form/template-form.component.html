@@ -1,0 +1,48 @@
+
+<div class="container">
+  <div class="row" *ngIf="!submitted">
+    <form (ngSubmit)="onSubmit()" #form='ngForm'>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input class="form-control" id="name" name="name" #name="ngModel" type="text" [(ngModel)]='form.name' required>
+        <div class="alert alert-danger" *ngIf="!name.valid && name.touched">Name is Required</div>
+      </div>
+      <div class="form-group">
+          <label for="alterEgo">Alter Ego</label>
+          <input class="form-control" id="alterEgo" name="alterEgo" #alterEgo="ngModel" type="text" [(ngModel)]='form.alterEgo' required>
+          <div class="alert alert-danger" *ngIf="!alterEgo.valid && alterEgo.touched">Alter Ego is Required</div>
+      </div>
+
+        <div class="form-group">
+            <label for="power">Power</label>
+            <select class="form-control" id="power" name="power" #power="ngModel" type="text" [(ngModel)]='form.power' required>
+              <option *ngFor="let p of powers" [value]="p">{{ p }}</option>
+            </select>
+            <div class="alert alert-danger" *ngIf="!power.valid && power.touched">power is Required</div>
+        </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Submit</button>
+    </form>
+    
+  </div>
+  <div class="row">
+      <div *ngIf="submmited">
+          <h2>You submitted the following:</h2>
+          <div class="row">
+            <div class="col-md-2">Name</div>
+            <div class="col-md-10 pull-left">{{ form.name }}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">Alter Ego</div>
+            <div class="col-md-10 pull-left">{{ form.alterEgo }}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">Power</div>
+            <div class="col-md-10 pull-left">{{ form.power }}</div>
+          </div>
+          <br />
+          <button class="btn btn-default" (click)="submitted=false" type="button">Edit</button>
+        </div>
+  </div>
+  
+</div>

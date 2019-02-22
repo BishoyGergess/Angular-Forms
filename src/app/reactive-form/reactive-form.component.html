@@ -1,0 +1,53 @@
+
+<div class="container">
+  <div class="row" *ngIf="!submitted">
+    <form (ngSubmit)="onSubmit(formGroup)" [formGroup]="formGroup">
+      <h1>Reactive Form</h1>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input formControlName="name" id="name"  type="text" class="form-control">
+        <div class="alert alert-danger" *ngIf="!formGroup.controls.name.valid && formGroup.controls.name.touched">Name is Required</div>
+      </div>
+      <div class="form-group">
+          <label for="alterEgo">Alter Ego</label>
+          <input formControlName="alterEgo" id="alterEgo"  type="text" class="form-control">
+          <div class="alert alert-danger" *ngIf="!formGroup.controls.alterEgo.valid && formGroup.controls.alterEgo.touched">Alter Ego is Required</div>
+        </div>
+        <div class="form-group">
+            <label for="email">email</label>
+            <input formControlName="email" id="email"  type="text" class="form-control">
+            <div class="alert alert-danger" *ngIf="!formGroup.controls.email.valid && formGroup.controls.email.touched">email is Required</div>
+          </div>
+          <div class="form-group">
+              <label for="power">Power</label>
+              <select formControlName="power" id="power" class="form-control">
+                <option *ngFor="let p of powers" [value]="p">{{ p }}</option>
+              </select>
+              <div class="alert alert-danger" *ngIf="!formGroup.controls.power.valid && formGroup.controls.power.touched">power is Required</div>
+            </div>
+            <button type="submit" class="btn btn-success"[disabled]="!formGroup.valid">Submit</button>
+    </form>
+  </div>
+  <div class="row" *ngIf="submitted">
+      <h2>You submitted the following:</h2>
+      <div class="row">
+          <div class="col-md-2">Name</div>
+          <div class="col-md-10 pull-left">{{ formValue.name }}</div>
+      </div>
+      <div class="row">
+          <div class="col-md-2">Alter Ego</div>
+          <div class="col-md-10 pull-left">{{ formValue.alterEgo }}</div>
+      </div>
+      <div class="row">
+          <div class="col-md-2">Hero Email</div>
+          <div class="col-md-10 pull-left">{{ formValue.email }}</div>
+      </div>
+      <div class="row">
+          <div class="col-md-2">Power</div>
+          <div class="col-md-10 pull-left">{{ formValue.power }}</div>
+      </div>
+      <br />
+      <button class="btn btn-default" (click)="submitted=false">Edit</button>
+  </div>    
+
+</div>

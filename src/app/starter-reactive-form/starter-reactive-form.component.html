@@ -1,0 +1,36 @@
+.
+<div class="container">
+  <div class="row">
+    <h1>Customer Edit</h1>
+    <form  [formGroup]="reactiveForm" (ngSubmit)="onSubmit()">
+      <div class="form-group" >
+        <label for="firstName">
+          First Name:
+        </label>
+       <input type="text" id="firstName" class="form-control" name="firstName" formControlName="firstName">
+      </div>
+      <br>
+      <span *ngIf="!reactiveForm.valid['firstName']&&reactiveForm.touched" class="error">First Name is required</span>
+      <br>
+      <button class="btn btn-success" [disabled]="!reactiveForm.valid">Submit</button>
+      <br>
+      <span class="col-xs-4">
+          Valid: <span>{{ reactiveForm.valid }}</span>
+      </span>
+      
+      <span class="col-xs-4">
+          Pristine : <span>{{ reactiveForm.pristine }}</span>
+      </span>
+      
+      <span class="col-xs-4">
+          Touched: <span>{{ reactiveForm.touched }}</span>
+      </span>
+      
+      <br>
+      <span>
+      {{ message }}
+      </span>
+    </form>
+  </div>
+</div>
+

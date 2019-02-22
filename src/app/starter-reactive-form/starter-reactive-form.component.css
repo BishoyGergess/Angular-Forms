@@ -1,0 +1,8 @@
+/*css here*/
+span{
+    padding: 10px;
+    font-weight: bold;
+}
+.error{
+    color: crimson;
+}

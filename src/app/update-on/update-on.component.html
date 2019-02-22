@@ -1,0 +1,117 @@
+<div class="container">
+    <!-- Template Form -->
+    <div *ngIf="!templateSubmitted">
+      <h1>Using updateOn with Template Forms</h1>
+      <!--Can add this if you want nothing to update until the form is submitted: [ngModelOptions]="{updateOn: 'submit'} -->
+      <form (ngSubmit)="onSubmit()" #normalTemp="ngForm">
+        <div class="form-group">
+          <label for="name">Name (updateOn applied)</label>
+          <!-- for updateOn you can pass 'blue' or 'submit' -->
+          <input type="text" class="form-control" name="name" 
+          #name="ngModel"
+            [(ngModel)]="formModel.name"
+          [ngModelOptions]="{updateOn: 'submit'}"
+           required> 
+          <div class="alert alert-danger" *ngIf="!name.valid && name.touched">Name is required</div>
+        </div>
+        <div class="form-group">
+          <label for="alterEgo">Alter Ego</label>
+          <!-- 
+            Example of what things look like without [(ngModel)]="model.alterEgo" 
+            
+            <input type="text" name="alterEgo" [ngModel]="model.alterEgo" (ngModelChange)="model.alterEgo=$event" required>
+          -->
+          <input type="text" class="form-control" name="alterEgo"
+          #alterEgo="ngModel"
+          [(ngModel)]="formModel.alterEgo"  required> 
+          <div class="alert alert-danger" *ngIf="!alterEgo.valid && alterEgo.touched">Alter Ego is required</div>
+        </div>
+        <div class="form-group">
+          <label for="power">Hero Power</label>
+          <select class="form-control" name="power" #power="ngModel"
+          [(ngModel)]="formModel.power"
+                  required>
+            <option *ngFor="let power of powers" [value]="power"> {{ power }}</option>
+          </select>
+          <div class="alert alert-danger" *ngIf="!power.valid && power.touched">Power is required</div>
+        </div>
+        <button type="submit" class="btn btn-default" [disabled]="!normalTemp.valid">Submit</button>
+        <br /><br />
+        
+      </form>
+    </div>
+    <div *ngIf="templateSubmitted">
+      <h2>You submitted the following:</h2>
+      <div class="row">
+        <div class="col-md-2">Name</div>
+        <div class="col-md-10 pull-left">{{ formModel.name }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">Alter Ego</div>
+        <div class="col-md-10 pull-left"> {{ formModel.alterEgo }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">Power</div>
+        <div class="col-md-10 pull-left"> {{ formModel.power }}</div>
+      </div>
+      <br />
+      <button class="btn btn-default" (click)="templateSubmitted =false">Edit</button>
+    </div>
+    <br />
+
+    <!-- Reactive Form -->
+    <div *ngIf="!reactiveSubmitted">
+      <h1>Using updateOn with Reactive Forms</h1>
+      <form [formGroup]="formGroup" (ngSubmit)="onReactiveSubmit()">
+          <div class="form-group">
+              <label for="name">Name (updateOn applied)</label>
+              <input type="text" class="form-control" formControlName="name"  /> 
+              <div class="alert alert-danger" *ngIf="!formGroup.controls.name.valid && formGroup.controls.name.touched">Name is required</div>
+          </div>
+          <div class="form-group">
+              <label for="alterEgo">Alter Ego</label>
+              <input type="text" class="form-control"  formControlName="alterEgo"/> 
+              <div class="alert alert-danger" *ngIf="!formGroup.controls.alterEgo.Valid && formGroup.controls.alterEgo.touched">Alter Ego is required</div>
+          </div>
+          <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control"  formControlName="email"/> 
+              <div class="alert alert-danger" *ngIf="!formGroup.controls.email.valid && formGroup.controls.email.touched">Email is required and must be a valid email pattern</div>
+          </div>
+          <div class="form-group">
+              <label for="power">Power</label>
+              <select class="form-control" formControlName="power">
+                <option *ngFor="let power of powers" [value]="power">{{ power }}</option>
+              </select>
+              <div class="alert alert-danger" *ngIf="!formGroup.controls.power.valid && formGroup.controls.power.touched">Power is required</div>
+          </div>
+          <button type="submit" class="btn btn-default" [disabled]="!formGroup.valid">Submit</button> 
+          <br /><br />
+          <pre>
+            
+          </pre>
+      </form>  
+  </div>
+                              
+    <div *ngIf="reactiveSubmitted" class="row">
+        <h2>You submitted the following:</h2>
+        <div class="row">
+            <div class="col-md-2">Name</div>
+            <div class="col-md-10 pull-left">{{ formModelSubmitted.name }}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">Alter Ego</div>
+            <div class="col-md-10 pull-left">{{ formModelSubmitted.alterEgo}}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">Email</div>
+            <div class="col-md-10 pull-left">{{ formModelSubmitted.email }}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">Power</div>
+            <div class="col-md-10 pull-left">{{ formModelSubmitted.power }}</div>
+        </div>
+        <br />
+        <button class="btn btn-default" (click)="reactiveSubmitted =false">Edit</button>
+    </div>  
+  </div>

@@ -1,0 +1,27 @@
+
+<div class="container">
+  <div *ngIf="!submitted" class="row">
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+        <div *ngFor="let prop of formModelProps">
+            <div class="form-group" *ngIf="prop !== 'id'">
+                <label for="name">{{ prop | camelToTitle }}</label>
+                <input type="text" class="form-control" [formControlName]="prop">
+                <show-error [control]="formGroup.control.prop"></show-error>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-default" [disabled]="!formGroup.valid">Submit</button> 
+    </form>
+  </div>
+
+  <div *ngIf="submitted" class="row">
+    <h2>You submitted the following:</h2>
+    <div *ngFor="let prop of formModelProps">
+        <div class="row">
+            <div class="col-md-2">{{ prop | camelToTitle }}</div>
+            <div class="col-md-10 pull-left">{{ formGroup.get(prop).value }}</div>
+        </div>
+    </div>
+    <br />
+    <button class="btn btn-default" (click)="submitted=false">Edit</button>
+  </div>
+</div>
